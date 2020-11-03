@@ -25,7 +25,6 @@ socket.on('getUsers', users => {
         userList.appendChild(li);
     }
 
-
 })
 
 socket.on('message', (data) => {
@@ -40,7 +39,12 @@ socket.on('message', (data) => {
       </div>
     `
     div.innerHTML = results;
+    if (data.username != username) {
+        const audio = new Audio('../notification.mp3');
+        audio.play();
+    }
     document.querySelector('.chat-messages').appendChild(div);
+
     document.querySelector('.chat-messages').scrollTop = document.querySelector('.chat-messages').scrollHeight;
 
 })
@@ -53,7 +57,7 @@ document.getElementById('chat-form').addEventListener('submit', (e) => {
     const chatInfo = {
         username,
         text,
-        room
+        room,
 
     }
     socket.emit('chatMessage', chatInfo);
