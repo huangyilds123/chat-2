@@ -1,6 +1,19 @@
 
 
+
+
 const socket = io();
+
+let notiSound = true;
+document.getElementById('muteIcon').addEventListener('click', () => {
+    // alert('hi')
+    notiSound = !notiSound;
+    if (!notiSound) {
+        document.getElementById('muteIcon').className = "fas fa-2x fa-bell-slash"
+    } else {
+        document.getElementById('muteIcon').className = "fas fa-2x fa-bell"
+    }
+})
 
 //Join room 
 
@@ -39,10 +52,14 @@ socket.on('message', (data) => {
       </div>
     `
     div.innerHTML = results;
-    if (data.username != username) {
-        const audio = new Audio('../notification.mp3');
-        audio.play();
+
+    if (notiSound == true) {
+        if (data.username != username) {
+            const audio = new Audio('../notification.mp3');
+            audio.play();
+        }
     }
+
     document.querySelector('.chat-messages').appendChild(div);
 
     document.querySelector('.chat-messages').scrollTop = document.querySelector('.chat-messages').scrollHeight;
