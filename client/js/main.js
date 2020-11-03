@@ -10,8 +10,10 @@ document.getElementById('muteIcon').addEventListener('click', () => {
     notiSound = !notiSound;
     if (!notiSound) {
         document.getElementById('muteIcon').className = "fas fa-2x fa-bell-slash"
+        document.getElementById('notiText').innerHTML = '(muted)'
     } else {
         document.getElementById('muteIcon').className = "fas fa-2x fa-bell"
+        document.getElementById('notiText').innerHTML = '(unmuted)'
     }
 })
 
