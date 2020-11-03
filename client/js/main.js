@@ -33,7 +33,7 @@ socket.on('message', (data) => {
     const div = document.createElement('div');
     let results = `
     <div class="message">
-      <p class="meta">${data.username} <span>${data.time}</span></p>
+      <p class="meta">${data.username} <span>${moment().format('MMM Do YY, h:mm a')}</span></p>
      <p class="text">
       ${data.text}
        </p>
