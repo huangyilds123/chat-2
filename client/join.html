@@ -14,10 +14,10 @@
 <body>
     <div class="join-container">
         <header class="join-header">
-            <h2><i class="fas fa-smile"></i>ChatApp(线上聊天，黄毅作品)</h2>
+            <h2><i class="fas fa-smile"></i>Join the room <span class="roomName"></span></h2>
         </header>
         <main class="join-main">
-            <form id="form">
+            <form id='form'>
                 <div class="form-control">
                     <label for="username">Username(姓名)</label>
                     <input type="text" name="username" id="username" placeholder="Enter username..." required />
@@ -37,7 +37,7 @@
                         <option value="room6">room6</option>
                     </select>
                 </div> -->
-                <button type="submit" class="btn">Create a room(创建聊天室)</button>
+                <button type="submit" class="btn">Join the <span class="roomName"></span></button>
             </form>
         </main>
     </div>
@@ -47,21 +47,40 @@
 
 </body>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.1/uuid.min.js"
-    integrity="sha512-4JH7nC4nSqPixxbhZCLETJ+DUfHa+Ggk90LETm25fi/SitneSvtxkcWAUujvYrgKgvrvwv4NDAsFgdwCS79Dcw=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
     crossorigin="anonymous"></script>
-<script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js"
+    integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w=="
+    crossorigin="anonymous"></script>
 
-    const room = uuid.v4();
-    // console.log(room);
+
+<script>
+    // get the room 
+    const { room } = Qs.parse(location.search, {
+        ignoreQueryPrefix: true
+    })
+
+    const roomNameNeedToOutput = (document.getElementsByClassName('roomName'));
+    for (let i = 0; i < roomNameNeedToOutput.length; i++) {
+        roomNameNeedToOutput[i].innerHTML = room;
+    }
 
     const form = document.getElementById('form');
-    form.addEventListener('submit', (e) => {
+
+    form.addEventListener("click", (e) => {
         e.preventDefault();
-        const nameInput = document.getElementById('username').value;
-        const joinRoomUrl = "http://localhost/chat.html?username=" + nameInput + "&room=" + room;
-        // console.log(joinRoomUrl)
-        window.open(joinRoomUrl);
+        const inputName = document.getElementById('username').value;
+        if (inputName == '') {
+
+        } else {
+            console.log(inputName);
+            //go the the chat.html 
+            window.location.href = "http://localhost/chat.html?username=" + inputName +
+                "&room=" + room;
+        }
+
 
     })
 

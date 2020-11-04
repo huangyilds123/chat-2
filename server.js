@@ -8,7 +8,7 @@ app.use(express.static('./client'))
 
 // Run when client connect 
 
-const PORT = 3000 || process.env.PORT;
+const PORT = 80 || process.env.PORT;
 
 const server = app.listen(PORT, () => console.log(`Server running on ${PORT}`));
 const io = socketio(server);

@@ -27,6 +27,13 @@ const { username, room } = Qs.parse(location.search, {
 
 document.getElementById('room-name').innerHTML = room
 
+const joinUrl = "http://localhost/join.html?room=" + room;
+
+
+
+
+document.getElementById('joinUrl').innerHTML = "<div class=\"header\"><h2>Copy the link below to invite your friend to join</h2>" + "<h1>" + joinUrl + "</h1></div>";
+
 socket.emit('joinRoom', { room: room, username: username });
 
 socket.on('getUsers', users => {
